@@ -1,1 +1,163 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix qb: <http://purl.org/linked-data/cube#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix hobbit: <http://w3id.org/hobbit/vocab#> .
+@prefix exp: <http://w3id.org/hobbit/experiments#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix sys: <http://w3id.org/system> .
+@prefix bench: <http://w3id.org/bench#> .
+@prefix error: <http://w3id.org/hobbit/error#> .
+@prefix limes: <http://limes.sf.net/ontology/> .
+@prefix mexcore: <http://mex.aksw.org/mex-core#> .
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix example: <http://example.org/> .
 
+# --- Benchmark ---
+
+bench:lance a	hobbit:Benchmark;
+  rdfs:label "Lance Benchmark"@en;
+  rdfs:comment	"LANCE is a benchmark for the assessment of Instance Matching techniques and systems for Linked Data data that are accompanied by a schema."@en;
+  hobbit:imageName	"LanceDockerImage";
+  hobbit:version "V1.1";
+  hobbit:measuresKPI bench:precision ;
+  hobbit:measuresKPI bench:recall ;
+  hobbit:measuresKPI bench:fmeasure ;
+  hobbit:hasAPI	bench:lanceApi;
+  hobbit:hasParameter bench:lanceDataFormat .
+
+bench:precision a hobbit:KPI;
+  rdfs:label "Precision"@en;
+  rdfs:comment	"Precision = TP / (TP + FP)"@en;
+  rdfs:range	xsd:float ;
+  hobbit:ranking hobbit:DescendingOrder .
+
+bench:recall a hobbit:KPI;
+  rdfs:label "Recall"@en;
+  rdfs:comment	"Recall = TP / (TP + FN)"@en;
+  rdfs:range	xsd:float ;
+  hobbit:ranking hobbit:DescendingOrder .
+
+bench:fmeasure a hobbit:KPI;
+  rdfs:label "F-measure"@en;
+  rdfs:comment	"F-measure is the harmonic mean of precision and recall."@en;
+  rdfs:range	xsd:float ;
+  hobbit:ranking hobbit:DescendingOrder .
+
+bench:lanceApi a hobbit:API .
+
+bench:lanceDataFormat  a	hobbit:ConfigurableParameter;
+  rdfs:label	"Lance dataset format"@en;
+  rdfs:comment	"......."@en;
+  rdfs:range bench:DataFormat;
+  hobbit:hasDefaultValue bench:Turtle .
+
+bench:DataFormat  a owl:Class ;
+  rdfs:label	"Lance dataset format"@en;
+  rdfs:comment	"......."@en .
+
+bench:RDF_XML a bench:DataFormat ;
+  rdfs:label	"RDF_XML dataset format"@en;
+  rdfs:comment	"......."@en .
+
+bench:N3 a bench:DataFormat ;
+  rdfs:label	"N3 dataset format"@en;
+  rdfs:comment	"......."@en .
+
+bench:Turtle a bench:DataFormat ;
+  rdfs:label	"Turtle dataset format"@en;
+  rdfs:comment	"......."@en .
+
+
+# --- System ---
+
+sys:limesV1 a  hobbit:SystemInstance ;
+  rdfs:label	"Limes"@en;
+  rdfs:comment	"Limes is an Instance Matching System..."@en;
+  hobbit:imageName "LimesImageName" ;
+  hobbit:implementsAPI bench:lanceApi ;
+  hobbit:instanceOf sys:limes ;
+  limes:threshold "0.7"^^xsd:float .
+
+sys:limes a hobbit:System ;
+  hobbit:hasParameter limes:threshold .
+
+limes:threshold a hobbit:FeatureParameter;
+  rdfs:label	"Limes Parameter"@en;
+  rdfs:comment	"Threshold parameter for Limes system."@en;
+  rdfs:range	xsd:float .
+
+# --- Experiment ---
+
+exp:LinkingExp10 a hobbit:Experiment ;
+  hobbit:involvesSystemInstance sys:limesV1;
+  hobbit:involvesBenchmark bench:lance;
+  hobbit:wasCarriedOutOn example:Cluster-CLUSTERHASH ;
+  hobbit:startTime "2016-11-30T22:57:00"^^xsd:dateTime ;
+  hobbit:endTime "2016-11-30T23:01:00"^^xsd:dateTime ;
+  hobbit:hobbitPlatformVersion "V1.3" ;
+  hobbit:isPartOf hobbit:OAEILinkingChallenge ;
+  bench:lanceDataFormat bench:RDF_XML;
+  bench:precision "0.5"^^xsd:float ;
+  bench:recall "0.5"^^xsd:float ;
+  bench:fmeasure "0.5"^^xsd:float ;
+  hobbit:terminatedWithError error:nullPointerException .
+
+error:nullPointerException a hobbit:Error ;
+  rdfs:label	"Null pointer exception"@en;
+  rdfs:comment	"A null pointer exception was thrown while running the experiment."@en .
+
+
+
+# --- Hardware ---
+
+example:Cluster-CLUSTERHASH a hobbit:Hardware ;
+  hobbit:comprises example:Node-NODEHASH .
+
+example:Node-NODEHASH a mexcore:HardwareConfiguration ;
+  rdfs:label "hobbitworker1" ;
+  mexcore:cpu "2-core (1 GHz, 1 GHz)" ;
+  mexcore:memory "Memory: 2 GiB, Swap: 1 GiB" ;
+  doap:os "Linux1.11.1-11-generic#11-Ubuntu SMP Tue Jan 01 00:00:00 UTC 1970x86_64" .
+
+# --- List of KPIs for leaderboard ---
+
+hobbit:OAEILinkingChallenge_KPIs a rdf:Seq, hobbit:KPISeq ;
+  rdf:_1 bench:recall ;
+  rdf:_2 bench:precision ;
+  rdf:_3 bench:fmeasure .
+
+# --- Challenge Task ---
+
+hobbit:OAEILinkingChallenge a hobbit:ChallengeTask ;
+  rdfs:label	"Linking"@en ;
+  rdfs:comment	"Linking Challenge for OAEI 2017"@en ;
+  hobbit:visible "false"^^xsd:boolean;
+  hobbit:involvesSystemInstance sys:limesV1;
+  hobbit:involvesBenchmark bench:lance;
+  hobbit:isTaskOf hobbit:OAEIChallenge;
+  hobbit:rankingKPIs hobbit:OAEILinkingChallenge_KPIs.
+
+
+hobbit:OAEIChallenge a hobbit:Challenge ;
+  rdfs:label	"OAEI Challenge"@en ;
+  rdfs:comment	"Challenge for OAEI 2017"@en ;
+  hobbit:executionDate "2017-02-25"^^xsd:date  ;
+  hobbit:publicationDate "2017-02-10"^^xsd:date  ;
+  hobbit:organizer "FORTH" ;
+  hobbit:closed "false"^^xsd:boolean .
+
+# Analysis
+
+example:AnalysisResultset1 a hobbit:AnalysisResultset ;
+  hobbit:involvesBenchmark bench:lance ;
+  hobbit:involvesSystemInstance sys:limesV1 ;
+  dcterms:created "2018-11-30T00:00:00Z"^^xsd:dateTime .
+
+example:AnalysisResult1 a hobbit:AnalysisResult ;
+  dcterms:isPartOf example:AnalysisResultset1 ;
+  hobbit:algorithm hobbit:PearsonAlgorithm ;
+  hobbit:involvesParameter limes:threshold ;
+  hobbit:involvesKPI bench:precision ;
+  rdf:value "0.5"^^xsd:double .
