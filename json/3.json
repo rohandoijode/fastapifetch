@@ -1,1 +1,82 @@
-
+{
+  "event": {
+    "title": "Tech Conference 2024",
+    "date": "2024-09-12",
+    "location": {
+      "venue": "Grand Convention Center",
+      "address": {
+        "street": "456 Elm St",
+        "city": "Metropolis",
+        "state": "NY",
+        "zip_code": "10001"
+      }
+    },
+    "sessions": [
+      {
+        "session_id": "S101",
+        "title": "Opening Keynote",
+        "speaker": "Jane Smith",
+        "time": "09:00 AM",
+        "duration_minutes": 60,
+        "room": "Main Hall"
+      },
+      {
+        "session_id": "S102",
+        "title": "AI and Machine Learning",
+        "speaker": "Dr. Alan Turing",
+        "time": "10:30 AM",
+        "duration_minutes": 45,
+        "room": "Room A"
+      },
+      {
+        "session_id": "S103",
+        "title": "Cybersecurity Trends",
+        "speaker": "Cynthia Lee",
+        "time": "11:30 AM",
+        "duration_minutes": 45,
+        "room": "Room B"
+      },
+      {
+        "session_id": "S104",
+        "title": "Networking Lunch",
+        "speaker": "N/A",
+        "time": "12:30 PM",
+        "duration_minutes": 90,
+        "room": "Cafeteria"
+      },
+      {
+        "session_id": "S105",
+        "title": "Blockchain Technology",
+        "speaker": "Satoshi Nakamoto",
+        "time": "02:00 PM",
+        "duration_minutes": 60,
+        "room": "Room A"
+      },
+      {
+        "session_id": "S106",
+        "title": "Closing Remarks",
+        "speaker": "John Doe",
+        "time": "04:00 PM",
+        "duration_minutes": 30,
+        "room": "Main Hall"
+      }
+    ],
+    "attendees": [
+      {
+        "attendee_id": "A001",
+        "name": "Michael Brown",
+        "email": "michael.brown@example.com"
+      },
+      {
+        "attendee_id": "A002",
+        "name": "Laura Johnson",
+        "email": "laura.johnson@example.com"
+      },
+      {
+        "attendee_id": "A003",
+        "name": "David Wilson",
+        "email": "david.wilson@example.com"
+      }
+    ]
+  }
+}
