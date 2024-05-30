@@ -1,1 +1,31 @@
-
+{
+  "catalog": [
+    {
+      "product_id": "A123",
+      "name": "Wireless Mouse",
+      "description": "A wireless mouse with ergonomic design.",
+      "price": 29.99,
+      "stock": 150,
+      "categories": ["electronics", "computer accessories"],
+      "tags": ["wireless", "mouse", "ergonomic"]
+    },
+    {
+      "product_id": "B456",
+      "name": "Bluetooth Headphones",
+      "description": "Noise-cancelling over-ear headphones with Bluetooth connectivity.",
+      "price": 89.99,
+      "stock": 75,
+      "categories": ["electronics", "audio"],
+      "tags": ["bluetooth", "headphones", "noise-cancelling"]
+    },
+    {
+      "product_id": "C789",
+      "name": "Smart Watch",
+      "description": "A smartwatch with health tracking and notifications.",
+      "price": 199.99,
+      "stock": 40,
+      "categories": ["electronics", "wearable technology"],
+      "tags": ["smartwatch", "health", "notifications"]
+    }
+  ]
+}
