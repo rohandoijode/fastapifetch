@@ -1,1 +1,31 @@
-
+{
+  "user": {
+    "id": 12345,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "date_of_birth": "1990-05-15",
+    "address": {
+      "street": "123 Main St",
+      "city": "Springfield",
+      "state": "IL",
+      "zip_code": "62704"
+    },
+    "phone_numbers": [
+      {
+        "type": "home",
+        "number": "555-1234"
+      },
+      {
+        "type": "mobile",
+        "number": "555-5678"
+      }
+    ],
+    "preferences": {
+      "newsletter": true,
+      "notifications": {
+        "email": true,
+        "sms": false
+      }
+    }
+  }
+}
